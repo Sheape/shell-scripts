@@ -15,35 +15,19 @@ getSubjects(){
 
 createDir(){
     ### Creating a new folder called school in the school path
-    if [ ! -d "$school_dir" ]
-    then
-        echo " Creating the School folder...";
-        mkdir "$school_dir";
-    else
-        echo " Folder already exists. Skipping..."
-    fi
+    test -d "$school_dir" && echo " Folder already exists. Skipping..." || { echo " Creating the School folder..."; mkdir "$school_dir"; }
 
     ### Check if all the quarters are already created.
     for i in ${quarters[*]}; do
-        if [ ! -d "$school_dir${i} Quarter" ]
-        then
-            echo " Creating quarterly directories...";
-            mkdir "$school_dir${i} Quarter";
-        else
-            echo " Folder already exists. Skipping...";
-        fi
+        test -d "$school_dir${i} Quarter" && echo " Folder already exists. Skipping..." || 
+        { echo " Creating quarterly directories..."; mkdir "$school_dir${i} Quarter"; }
     done
 
     ### Check if the subjects are already created.
     for i in ${subjects[*]}; do
         for c in ${quarters[*]}; do
-            if [ ! -d "$school_dir${c} Quarter/${i}" ]
-            then
-                echo " Creating ${i} directories in each quarters...";
-                mkdir "$school_dir${c} Quarter/${i}";
-            else
-                echo " Folder already exists. Skipping...";
-            fi
+            test -d "$school_dir${c} Quarter/${i}" && echo " Folder already exists. Skipping..." ||
+            { echo " Creating ${i} directories in each quarters..."; mkdir "$school_dir${c} Quarter/${i}"; }
         done
     done
 }

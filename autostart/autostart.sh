@@ -6,8 +6,8 @@
 wallpaper_path="$HOME/.config/qtile/assets/wallpaper/cityscape-pixel-art-sunlight.png"
 
 picom -b --experimental-backends &
-dunst &
-feh --bg-fill $wallpaper_path
-setxkbmap us; xset -r 66
-setxkbmap -v workman && xset r 66
+wired &
+redshift &
+feh --bg-fill $wallpaper_path &
+setxkbmap -layout us -variant workman && xset r 66 &
 emacs --daemon

@@ -1,0 +1,64 @@
+#!/bin/sh
+set -eu
+
+CONFIG="$XDG_CONFIG_HOME/system/home-dotfiles"
+LOCAL_REPO="$HOME/code/dotfiles"
+
+if [ "$#" -lt 3 ]; then
+    if [ "$1" != "init" ] ; then
+        echo "Usage: $0 <add|remove> <home|system> <config_file>"
+        exit 1
+    fi
+fi
+
+check_if_exist() {
+    [ ! -f "$CONFIG" ] && touch "$CONFIG" || return 0
+}
+
+check_if_exist "$@"
+
+add_home() {
+    shift 2
+    for arg in "$@"; do
+        path=$(realpath --relative-to="$HOME" "$arg")
+        if grep -Fxq "$path" "$CONFIG"; then
+            echo "Home dotfile already exist."
+        else
+            echo "$path" >> "$CONFIG"
+            echo "Home dotfile added successfully."
+        fi
+    done
+}
+
+remove_home() {
+    shift 2
+    for arg in "$@"; do
+        path=$(realpath --relative-to="$HOME" "$arg")
+        if grep -Fxq "$path" "$CONFIG"; then
+            sed -i "\#^$path\$#d" "$CONFIG"
+            rm -vf "${LOCAL_REPO}/${path}"
+            echo "Home dotfile successfully removed."
+        else
+            echo "Home dotfile doesn't exist in the file."
+        fi
+    done
+}
+
+add() {
+    case "$2" in
+        home) add_home "$@" ;;
+    esac
+}
+
+remove() {
+    case "$2" in
+        home) remove_home "$@" ;;
+    esac
+}
+
+
+case "$1" in
+    add) add "$@" ;;
+    remove) remove "$@" ;;
+    *) make -C "$LOCAL_REPO" "$@";;
+esac

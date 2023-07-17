@@ -1,0 +1,12 @@
+#!/bin/sh
+sleep 1
+killall -e xdg-desktop-portal-hyprland
+killall -e xdg-desktop-portal-wlr
+killall xdg-desktop-portal
+pipewire &
+wireplumber &
+/usr/libexec/xdg-desktop-portal-hyprland &
+hyprpaper &
+foot --server &
+eww daemon &
+dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland &

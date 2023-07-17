@@ -1,0 +1,5 @@
+#!/bin/sh
+
+PROCESS="$1"
+
+pidof -x "${PROCESS}"

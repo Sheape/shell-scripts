@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Requires bsp-layout
+# https://github.com/phenax/bsp-layout
+selected_layout="$(bsp-layout layouts | dmenu)"
+
+bsp-layout set "${selected_layout}"

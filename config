@@ -1,0 +1,6 @@
+#!/bin/sh
+
+DOTFILES="${XDG_CONFIG_HOME}/system/home-dotfiles"
+
+selection="$(fzf < "$DOTFILES" | while read -r file; do echo "$HOME"/"$file"; done)"
+neovide --multigrid --nofork --novsync "$selection"

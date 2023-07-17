@@ -1,0 +1,65 @@
+#!/bin/sh
+set -eu
+
+# Change your remote repo for suckless'
+# git for suckless utilities, aswell as
+# the branch.
+REMOTE="suckless"
+BRANCH="master"
+REMOTE_CONFIG="origin"
+MERGE_BRANCH="merge-conflict"
+
+# List and format git-branch cleanly and remove master
+branches="$(git for-each-ref --format='%(refname)' refs/heads/ | cut -d'/' -f3 | sed '/^master/d')"
+
+
+# Generate diff files after patching for it to
+# work in a clean build of suckless utility.
+diff() {
+    software="$(basename $(pwd))"
+    tmp="${HOME}/.local/tmp/suckless/patches"
+
+    [ -d "${tmp}" ] || mkdir -p "${tmp}"
+    [ -d "${tmp}/${software}" ] || mkdir -p "${tmp}/${software}"
+
+    printf "${branches}" | xargs -t -I{} sh -c "git checkout ${MERGE_BRANCH} && git diff ${BRANCH}..{} > "${tmp}/${software}/"${software}"-{}-"$(date +%Y%m%d)"-"$(git rev-parse --short HEAD).diff"
+}
+
+fix() {
+    git checkout ${MERGE_BRANCH}
+    printf "$*" | xargs -d \  -I{} git merge {} -m {}
+}
+
+clean() {
+    make clean
+    rm -f config.h
+    git reset --hard ${REMOTE}/${BRANCH}
+}
+
+merge() {
+    git checkout ${BRANCH}
+    printf "${branches}" | xargs -t -I{} git merge {} -m {}
+}
+
+push() {
+    git checkout ${BRANCH}
+    git push ${REMOTE_CONFIG} --force --all
+}
+
+update() {
+    git fetch ${REMOTE} ${BRANCH}
+}
+
+install() {
+    make && sudo make clean install
+}
+
+case "$1" in
+    merge) merge;;
+    clean) clean;;
+    push) push;;
+    diff) diff;;
+    fix) fix $*;;
+    update) update;;
+    install) install;;
+esac

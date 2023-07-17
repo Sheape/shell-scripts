@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Seperate with ,
+EXT="png,jpg"
+
+ls *.eps > /dev/null 2>&1 && rm *.eps
+img="$(ls | egrep *.$(echo ${EXT} | tr , \|))"
+for i in ${img}; do convert ${i} ${i%.*}.eps; done

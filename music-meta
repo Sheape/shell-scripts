@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# About:
+# This script installs all the music inside input file alongised with their
+# metadata.
+
+# Usage:
+# 1. List out the necessary fields and write it to a json file.
+# 2. Pipe your file to this script by 'catting' or cat <file>.
+
+# Dependencies:
+# yt-dl or yt-dlp
+# jq
+# mpd
+
+input="/dev/stdin"
+mpd_config="$HOME/.config/mpd/mpd.conf"
+output_dir="$(grep -Po '(?<=music_directory.....").*(?=")' "${mpd_config}" | \
+    sed "s|\~|$HOME|g")"
+
+for author in $(jq '.[].author' < ${input} | sed -e 's` `\\\ `g' -e 's/"//g')
+do
+    [ -d "${output_dir}/${author}" ] || mkdir -p "${output_dir}/${author}"
+done
+
+
+## File must be a json file.
+
+# Example format:
+# [
+#   {
+#     "author": "<value>"
+#     "meta": [
+#       { "title": <value>, "link": <value> },
+#       { "title": <value>, "link": <value> },
+#     ]
+#   },
+#   {
+#     "author": "<value>"
+#     "meta": [
+#       { "title": <value>, "link": <value> },
+#       { "title": <value>, "link": <value> },
+#     ]
+#   }
+# ]

@@ -1,0 +1,74 @@
+#!/bin/sh
+set -eu
+
+interval=0.25
+
+read() {
+    repos
+    sleep ${interval}
+    xdotool click 3
+    sleep ${interval}
+    xdotool mousemove_relative -- 15 175
+    sleep ${interval}
+    xdotool click 1
+    sleep ${interval}
+    xdotool key "ctrl+Tab"
+    sleep ${interval}
+    xdotool mousemove 400 130
+    sleep ${interval}
+    xdotool click 1
+    sleep ${interval}
+    xdotool key "ctrl+a" "BackSpace" "ctrl+v"
+    sleep ${interval}
+    xdotool type " label:sales -label:Simple-Goods"
+    sleep ${interval}
+    xdotool key "enter"
+    sleep ${interval}
+}
+
+repos() {
+    sleep ${interval}
+    xdotool key "ctrl+shift+Tab"
+    sleep ${interval}
+    xdotool mousemove 1500 195
+    sleep ${interval}
+    xdotool click 1
+    sleep 0.5
+    xdotool key "Page_Down"
+    sleep ${interval}
+    xdotool mousemove 718 392
+    sleep ${interval}
+}
+
+label() {
+    sleep ${interval}
+    xdotool key "ctrl+shift+Tab"
+    sleep ${interval}
+    xdotool mousemove 745 195
+    sleep ${interval}
+    xdotool click 1
+    sleep ${interval}
+    xdotool mousemove_relative -- 10 55
+    sleep ${interval}
+    xdotool click 1
+    sleep ${interval}
+    xdotool type "temporary"
+    sleep ${interval}
+    xdotool mousemove_relative -- 10 45
+    sleep ${interval}
+    xdotool click 1
+    sleep ${interval}
+    xdotool mousemove_relative -- 0 40
+    sleep ${interval}
+    xdotool click 1
+    sleep ${interval}
+    xdotool key "ctrl+Tab"
+    sleep ${interval}
+    read
+}
+
+case "$1" in
+    "read") read ;;
+    "label") label ;;
+    "repos") repos ;;
+esac

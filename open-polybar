@@ -1,0 +1,6 @@
+#!/bin/sh
+
+sleep .5
+
+CONFIG="$HOME/.config/polybar/config"
+pgrep -x polybar >/dev/null && pkill -USR1 polybar || polybar -c "${CONFIG}"

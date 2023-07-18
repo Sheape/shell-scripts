@@ -3,8 +3,9 @@ sleep 1
 killall -e xdg-desktop-portal-hyprland
 killall -e xdg-desktop-portal-wlr
 killall xdg-desktop-portal
-pipewire &
+dbus-run-session pipewire &
 wireplumber &
+pipewire-pulse &
 /usr/libexec/xdg-desktop-portal-hyprland &
 hyprpaper &
 foot --server &

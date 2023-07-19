@@ -5,7 +5,7 @@ CONFIG="$XDG_CONFIG_HOME/system/home-dotfiles"
 LOCAL_REPO="$HOME/code/dotfiles"
 
 if [ "$#" -lt 3 ]; then
-    if [ "$1" != "init" ] ; then
+    if [ "$1" != "init" ] && [ "$1" != "diff" ] ; then
         echo "Usage: $0 <add|remove> <home|system> <config_file>"
         exit 1
     fi

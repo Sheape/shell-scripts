@@ -10,4 +10,5 @@ pipewire-pulse &
 hyprpaper &
 foot --server &
 eww daemon &
+dunst &
 dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland &

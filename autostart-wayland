@@ -8,7 +8,8 @@ wireplumber &
 pipewire-pulse &
 /usr/libexec/xdg-desktop-portal-hyprland &
 hyprpaper &
+emacs --daemon &
 foot --server &
 eww daemon &
 dunst &
-dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland &
+dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland &

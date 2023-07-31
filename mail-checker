@@ -8,9 +8,10 @@ read() {
     sleep ${interval}
     xdotool click 3
     sleep ${interval}
-    xdotool mousemove_relative -- 15 175
-    sleep ${interval}
-    xdotool click 1
+    # xdotool mousemove_relative -- 15 -175
+    xdotool key "e"
+    # sleep ${interval}
+    # xdotool click 1
     sleep ${interval}
     xdotool key "ctrl+Tab"
     sleep ${interval}
@@ -20,7 +21,33 @@ read() {
     sleep ${interval}
     xdotool key "ctrl+a" "BackSpace" "ctrl+v"
     sleep ${interval}
-    xdotool type " label:sales -label:Simple-Goods"
+    xdotool type " label:sales"
+    sleep ${interval}
+    xdotool key "enter"
+    sleep ${interval}
+}
+
+read_name_only() {
+    sleep ${interval}
+    xdotool key "ctrl+shift+Tab"
+    sleep ${interval}
+    xdotool mousemove 718 824
+    sleep ${interval}
+    xdotool click 1
+    xdotool click 1
+    xdotool click 1
+    sleep ${interval}
+    xdotool key "ctrl+c"
+    sleep ${interval}
+    xdotool key "ctrl+Tab"
+    sleep ${interval}
+    xdotool mousemove 400 130
+    sleep ${interval}
+    xdotool click 1
+    sleep ${interval}
+    xdotool key "ctrl+a" "BackSpace" "ctrl+v"
+    sleep ${interval}
+    xdotool type " label:sales"
     sleep ${interval}
     xdotool key "enter"
     sleep ${interval}
@@ -30,13 +57,12 @@ repos() {
     sleep ${interval}
     xdotool key "ctrl+shift+Tab"
     sleep ${interval}
-    xdotool mousemove 1500 195
+    xdotool mousemove 1450 195
     sleep ${interval}
     xdotool click 1
     sleep 0.5
-    xdotool key "Page_Down"
-    sleep ${interval}
-    xdotool mousemove 718 392
+    # xdotool key "Page_Down"
+    xdotool mousemove 718 833
     sleep ${interval}
 }
 
@@ -69,6 +95,7 @@ label() {
 
 case "$1" in
     "read") read ;;
-    "label") label ;;
+    "read_name_only") read_name_only ;;
     "repos") repos ;;
+    "label") label ;;
 esac

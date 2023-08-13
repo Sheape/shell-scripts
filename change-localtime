@@ -1,0 +1,15 @@
+#!/bin/sh
+
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+RESET=$(tput sgr0)
+
+if [ $# -ne 2 ]; then
+    echo "${RED}Usage: $0 <Continent> <City>${RESET}"
+    exit 1
+fi
+
+cp /etc/localtime /etc/localtime.old
+ln -sf /usr/share/zoneinfo/"$1"/"$2" /etc/localtime
+
+echo "${GREEN} Timezone changed to $1/$2${RESET}"

@@ -78,13 +78,13 @@ label() {
     sleep ${interval}
     xdotool click 1
     sleep ${interval}
-    xdotool type "temporary"
+    xdotool type "CO-PAM"
     sleep ${interval}
     xdotool mousemove_relative -- 10 45
     sleep ${interval}
     xdotool click 1
     sleep ${interval}
-    xdotool mousemove_relative -- 0 40
+    xdotool mousemove_relative -- 0 60
     sleep ${interval}
     xdotool click 1
     sleep ${interval}

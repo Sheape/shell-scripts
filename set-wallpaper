@@ -1,0 +1,7 @@
+#!/bin/sh
+
+full_path=$(realpath "$1")
+
+hyprctl hyprpaper preload "$full_path"
+hyprctl hyprpaper wallpaper "VGA-1,$full_path"
+hyprctl hyprpaper unload all

@@ -2,4 +2,4 @@
 
 echo "Name of the file:"
 read filename
-xclip -selection clipboard -out > $filename.png
+cp /tmp/screenshot.png "$filename".png

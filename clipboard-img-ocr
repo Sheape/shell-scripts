@@ -1,0 +1,6 @@
+#!/bin/sh
+
+screenshot_location="/tmp/screenshot.png"
+language="eng"
+
+tesseract-ocr -l "$language" "$screenshot_location" - | wl-copy

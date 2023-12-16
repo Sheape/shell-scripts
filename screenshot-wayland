@@ -1,0 +1,8 @@
+#!/bin/sh
+
+screenshot_location="/tmp/screenshot.png"
+
+case "$1" in
+    area) grimblast copysave area $screenshot_location;;
+    screen) grimblast copysave output $screenshot_location;;
+esac

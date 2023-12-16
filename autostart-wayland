@@ -3,13 +3,12 @@ sleep 1
 killall -e xdg-desktop-portal-hyprland
 killall -e xdg-desktop-portal-wlr
 killall xdg-desktop-portal
-dbus-run-session pipewire &
-wireplumber &
-pipewire-pulse &
 /usr/libexec/xdg-desktop-portal-hyprland &
+dbus-run-session pipewire && pipewire-pulse && wireplumber &
 hyprpaper &
 emacs --daemon &
 foot --server &
 eww daemon &
 dunst &
 dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=Hyprland &
+eval "$(ssh-agent -s)" &

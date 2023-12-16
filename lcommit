@@ -1,0 +1,19 @@
+#!/bin/sh
+
+remote_repo=$(git remote)
+local_branch=$(git rev-parse --abbrev-ref HEAD)
+branch="$remote_repo/$local_branch"
+commit_message_format='git log --pretty=format:"%s"'
+unpushed_commits="$($commit_message_format "$branch"..HEAD)"
+last_commit_message="$($commit_message_format -n 1 -- "$1")"
+
+if echo "$unpushed_commits" | grep -q "$last_commit_message"; then
+    git log --grep="$($commit_message_format -n 1 -- $1)"
+
+    # echo "$duplicate_commit"
+    # git reset --soft HEAD^
+    # git commit --amend -m "$last_commit_message"
+    # git rebase -i "$duplicate_commit"
+else
+    echo "No recent commits found in this file. Commit the file manually."
+fi

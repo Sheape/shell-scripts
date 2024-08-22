@@ -1,7 +1,7 @@
 #!/bin/sh
 
-WINDOW_STATE="$(eww windows | grep "\*${1}")"
+WINDOW_STATE="$(eww active-windows | grep "^${1}")"
 
-[ "${WINDOW_STATE}" = "*${1}" ] \
+[ "${WINDOW_STATE}" = "${1}: ${1}" ] \
 	&& eww close "$1" \
 	|| eww open "$1"
